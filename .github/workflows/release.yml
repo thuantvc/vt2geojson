@@ -32,11 +32,12 @@ jobs:
     - name: Environment Printer
       uses: managedkaos/print-env@v1.0
 
-    - uses: wangyoucao577/go-release-action@master
+    - uses: wangyoucao577/go-release-action@feature/asset-name
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
         goos: ${{ matrix.goos }}
         goarch: ${{ matrix.goarch }}
         project_path: "${{ env.CMD_PATH }}"
         build_flags: -v
+        asset_name: "vt2geojson-$(date -u +%Y%m%d)-${{ matrix.goos }}--${{ matrix.goarch }}"
         ldflags: -X "main.appVersion=${{ env.APP_VERSION }}" -X "main.buildTime=${{ env.BUILD_TIME }}" -X main.gitCommit=${{ github.sha }} -X main.gitRef=${{ github.ref }}
